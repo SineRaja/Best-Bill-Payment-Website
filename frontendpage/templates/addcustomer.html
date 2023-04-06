@@ -1,0 +1,98 @@
+{% extends 'nav.html' %} 
+{% load static %} 
+{% block body1 %}
+
+
+{% if error == "no" %}
+     <script>
+	   alert('New Customer has been Added...');
+	   window.location=('{% url 'addconnection' %}');
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
+
+<div class="w-100 d-flex justify-content-center">
+    <div class="card m-5 w-75" style="padding: 50px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
+
+      <h5 class="p-2" style="border-bottom: 2px solid orange">Add New Customer</h5>
+
+      <div class="container-fluid">
+        <form method="post" onsubmit="return MobileValidate()">
+            {% csrf_token %}
+          <div class="form-row">
+
+            <div class="col-sm-6">
+             <div class="form-group">
+               <label>First Name</label>
+               <input type="text" name="userfirstname" class="form-control" placeholder="Enter First Name" required>
+             </div>
+            </div>
+             <div class="col-sm-6">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="userlastname" class="form-control" placeholder="Enter Last Name" required>
+              </div>
+            </div>
+
+           <div class="col-sm-12">
+             <div class="form-group">
+               <label>Contact</label>
+               <input type="number" name="usercontactnumber" class="form-control" placeholder="Enter Contact Number" pattern="[0-9]+" required>
+             </div>
+            </div>
+
+            <div class="col-sm-12">
+             <div class="form-group">
+               <label>nickname</label>
+               <input type="text" name="useremail" class="form-control" placeholder="Enter Nickname" required>
+             </div>
+            </div>
+
+            <div class="col-sm-12">
+             <div class="form-group">
+               <label>Address</label>
+               <textarea name="useraddress" class="form-control" rows="2"></textarea>
+
+             </div>
+            </div>
+
+            <div class="col-sm-12">
+             <div class="form-group">
+               <label>City</label>
+               <input type="text" name="usercity" class="form-control" placeholder="Enter City" required>
+             </div>
+            </div>
+
+            <div class="col-sm-12">
+             <div class="form-group">
+               <label>State</label>
+               <input type="text" name="userstate" class="form-control" placeholder="Enter State" required>
+             </div>
+            </div>
+          </div>
+          <hr>
+        <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+		function MobileValidate() {
+			var contact = document.getElementById("usercontactnumber").value;
+			var contactTenDigit = /^\d{10}$/;
+			if (contact != '') {
+				if (contact.match(contactTenDigit)) {
+					return true;
+				} else {
+					alert("Enter Ten Digit Mobile Number");
+					return false;
+				}
+			}
+		}
+</script>
+{% endblock %}
